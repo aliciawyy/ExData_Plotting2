@@ -26,3 +26,51 @@ plot4 <- function() {
     dev.copy(png, file = "plot4.png")
     dev.off()
 }
+
+#-------------------------------------------------------
+plot5 <- function() {
+    LoadData()
+    
+    NEI$type <<- as.factor(NEI$type)
+    NEI$year <<- as.factor(NEI$year)
+    
+    # Motorcycles : On-road 2- and 3-wheeled vehicles, mopeds, and scooters
+    # ref. http://www.epa.gov/otaq/standards/basicinfo.htm
+    selectSCC <- grepl("On-Road", SCC$EI.Sector)
+    SCCID <- SCC$SCC[selectSCC]
+    
+    selection <- is.element(NEI$SCC, SCCID) & NEI$fips == 24510
+    MotorC <- NEI[selection, ]
+    #    q <- qplot(year, Emissions, data = CoalComb, stat = "identity", geom = "bar", ylab = "Emission")
+    #    print(q)
+    b <- tapply(MotorC$Emissions, MotorC$year, sum, na.rm = TRUE)
+    barplot(b)
+    
+    
+    dev.copy(png, file = "plot5.png")
+    dev.off()
+}
+
+#-------------------------------------------------------
+plot6 <- function() {
+    LoadData()
+    
+    NEI$type <<- as.factor(NEI$type)
+    NEI$year <<- as.factor(NEI$year)
+    
+    # Motorcycles : On-road 2- and 3-wheeled vehicles, mopeds, and scooters
+    # ref. http://www.epa.gov/otaq/standards/basicinfo.htm
+    selectSCC <- grepl("On-Road", SCC$EI.Sector)
+    SCCID <- SCC$SCC[selectSCC]
+    
+    selection <- is.element(NEI$SCC, SCCID) & NEI$fips == 24510
+    MotorC <- NEI[selection, ]
+    #    q <- qplot(year, Emissions, data = CoalComb, stat = "identity", geom = "bar", ylab = "Emission")
+    #    print(q)
+    b <- tapply(MotorC$Emissions, MotorC$year, sum, na.rm = TRUE)
+    barplot(b)
+    
+    
+    dev.copy(png, file = "plot6.png")
+    dev.off()
+}
