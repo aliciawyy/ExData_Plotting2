@@ -6,10 +6,12 @@
 #-------------------------------------------------------
 plot2 <- function() {
     LoadData()
-    selection <- NEI$fips == 24510
+    
+    selection <- NEI$fips == "24510"
     BAperyear <- tapply(NEI$Emissions[selection], NEI$year[selection], sum, na.rm = TRUE)
-    BAperyear
-    barplot(BAperyear)
+
+    barplot(BAperyear, xlab = "Year", ylab = "Emission",
+            main = "Total emissions from PM2.5 in Baltimore City")
     
     dev.copy(png, file = "plot2.png")
     dev.off()

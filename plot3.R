@@ -10,7 +10,7 @@ plot3 <- function() {
 
     NEI$type <<- as.factor(NEI$type)
     NEI$year <<- as.factor(NEI$year)
-    selection <- NEI$fips == 24510
+    selection <- NEI$fips == "24510"
 #    Nsmall <- NEI[sample(nrow(NEI), 1000), ]
     BA <- NEI[selection, ]
     q <- qplot(year, Emissions, data = BA, facets = type ~., stat = "identity", geom = "bar", ylab = "Emission")

@@ -20,7 +20,7 @@ plot4 <- function() {
 #    q <- qplot(year, Emissions, data = CoalComb, stat = "identity", geom = "bar", ylab = "Emission")
 #    print(q)
      b <- tapply(CoalComb$Emissions, CoalComb$year, sum, na.rm = TRUE)
-     barplot(b)
+     barplot(b, xlab = "Year", ylab = "Emission")
     
     
     dev.copy(png, file = "plot4.png")
@@ -39,12 +39,12 @@ plot5 <- function() {
     selectSCC <- grepl("On-Road", SCC$EI.Sector)
     SCCID <- SCC$SCC[selectSCC]
     
-    selection <- is.element(NEI$SCC, SCCID) & NEI$fips == 24510
+    selection <- is.element(NEI$SCC, SCCID) & NEI$fips == "24510"
     MotorC <- NEI[selection, ]
     #    q <- qplot(year, Emissions, data = CoalComb, stat = "identity", geom = "bar", ylab = "Emission")
     #    print(q)
     b <- tapply(MotorC$Emissions, MotorC$year, sum, na.rm = TRUE)
-    barplot(b)
+    barplot(b, xlab = "Year", ylab = "Emission")
     
     
     dev.copy(png, file = "plot5.png")
@@ -63,13 +63,16 @@ plot6 <- function() {
     selectSCC <- grepl("On-Road", SCC$EI.Sector)
     SCCID <- SCC$SCC[selectSCC]
     
-    selection <- is.element(NEI$SCC, SCCID) & NEI$fips == 24510
-    MotorC <- NEI[selection, ]
-    #    q <- qplot(year, Emissions, data = CoalComb, stat = "identity", geom = "bar", ylab = "Emission")
-    #    print(q)
-    b <- tapply(MotorC$Emissions, MotorC$year, sum, na.rm = TRUE)
-    barplot(b)
+    par(mfrow = c(1,2))
     
+    selection <- is.element(NEI$SCC, SCCID) & NEI$fips == "24510"
+    MotorC <- NEI[selection, ]
+    b1 <- tapply(MotorC$Emissions, MotorC$year, sum, na.rm = TRUE)
+    barplot(b1, main = "Baltimore", xlab = "Year", ylab = "Emission" )
+    selection2 <- is.element(NEI$SCC, SCCID) & NEI$fips == "06037"
+    MotorC2 <- NEI[selection2, ]
+    b2 <- tapply(MotorC2$Emissions, MotorC2$year, sum, na.rm = TRUE)
+    barplot(b2, main = "Los Angeles", xlab = "Year", ylab = "Emission" )
     
     dev.copy(png, file = "plot6.png")
     dev.off()
